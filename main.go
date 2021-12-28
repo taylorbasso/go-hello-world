@@ -3,14 +3,15 @@ package main
 import (
     "encoding/json"
     "fmt"
+    "github.com/gorilla/mux"
     "io/ioutil"
     "log"
     "net/http"
-    "github.com/gorilla/mux"
 )
 
 func homePage(w http.ResponseWriter, r *http.Request){
-    fmt.Fprintf(w, "Welcome to the HomePage!")
+    home := Home{Message: "Welcome to the Home Page!"}
+    json.NewEncoder(w).Encode(home)
     fmt.Println("Endpoint Hit: homePage")
 }
 
@@ -103,6 +104,10 @@ type Article struct {
     Title string `json:"Title"`
     Desc string `json:"desc"`
     Content string `json:"content"`
+}
+
+type Home struct {
+    Message string `json:"message"`
 }
 
 // let's declare a global Articles array
